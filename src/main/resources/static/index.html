@@ -222,7 +222,7 @@
     }
 
     async function deleteUser(button, id) {
-        if($(button).html == "삭제")
+        if($(button).html() == "삭제")
         {
             try
             {
@@ -241,6 +241,13 @@
                 console.log(JSON.stringify(err));
             }
         }
+        else
+        {
+            let line = $(`#userLine${id}`);
+            line.find("div:nth-child(3)").html(userPic);
+            $(button).html("삭제");
+            $(button).prev().html("프사 수정");
+        }
     }
 
     let userPic = null;
@@ -251,7 +258,7 @@
         {
 
             let pic = line.find("div:nth-child(3)");
-            let userPic = pic.html();
+            userPic = pic.html();
             pic.html(`<input type="file" id="upload-file" multiple>`);
             $(button).html("확인");
             $(button).next().html("취소");
