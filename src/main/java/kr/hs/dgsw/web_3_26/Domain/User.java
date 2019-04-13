@@ -24,15 +24,34 @@ public class User {
 
     private String imagePath;
 
+    private String originFileName;
+
+    private String password;
+
     @CreationTimestamp
     private LocalDateTime joined;
     @UpdateTimestamp
     private LocalDateTime modified;
 
-    public User(String username, String email, String imagePath)
+    public User(String username, String email, String password, String imagePath, String originFileName)
     {
         this.userName = username;
         this.email = email;
         this.imagePath = imagePath;
+        this.originFileName = originFileName;
+        this.password = password;
+    }
+
+    public User(String username, String email, String password)
+    {
+        this.userName = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String email, String password)
+    {
+        this.email = email;
+        this.password = password;
     }
 }

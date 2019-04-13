@@ -25,10 +25,10 @@ public class CommentServiceImpl implements CommentService {
     @PostConstruct
     private void init()
     {
-        User u = userRepository.save(new User("aaa", "aaa@dgsw", null));
-        commentRepository.save(new Comment(u.getId(), "hi there1"));
-        commentRepository.save(new Comment(u.getId(), "hi there2"));
-        commentRepository.save(new Comment(u.getId(), "hi there3"));
+        User u = userRepository.save(new User("aaa", "aaa@dgsw", "1234"));
+        commentRepository.save(new Comment(u.getId(), "hi there1", null, null));
+        commentRepository.save(new Comment(u.getId(), "hi there2", null, null));
+        commentRepository.save(new Comment(u.getId(), "hi there3", null, null));
     }
 
     @Override
@@ -63,10 +63,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment updateComment(Comment comment) {
+    public CommentUsernameProtocol updateComment(Comment comment) {
+
         return commentRepository.findById(comment.getId()).map(found -> {
             found.setContent(comment.getContent());
-            return commentRepository.save(found);
+            found.setImagePath(comment.getImagePath());
+            found.setOriginFileName(comment.getOriginFileName());
+            User user = userRepository.findById(found.getUserId()).map(f -> f).orElse(null);
+            return new CommentUsernameProtocol(commentRepository.save(found), user.getUserName());
         }).orElse(null);
     }
 

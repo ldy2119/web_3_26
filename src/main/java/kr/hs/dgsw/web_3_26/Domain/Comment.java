@@ -28,18 +28,26 @@ public class Comment {
     @UpdateTimestamp
     private LocalDateTime modified;
 
+    private String imagePath;
+
+    private String originFileName;
+
     public Comment(Comment c)
     {
         this.id = c.getId();
         this.userId = c.getUserId();
         this.content = c.getContent();
+        this.imagePath = c.getImagePath();
+        this.originFileName = c.getOriginFileName();
         this.created = c.created;
         this.modified = c.modified;
     }
 
-    public Comment(Long userId, String content)
+    public Comment(Long userId, String content, String imagePath, String originFileName)
     {
         this.userId = userId;
         this.content = content;
+        this.originFileName = originFileName;
+        this.imagePath = imagePath;
     }
 }

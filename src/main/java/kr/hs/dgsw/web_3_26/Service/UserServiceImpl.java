@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
             found.setUserName(user.getUserName());
             found.setEmail(user.getEmail());
             found.setImagePath(user.getImagePath());
+            found.setOriginFileName(user.getOriginFileName());
             return userRepository.save(found);
         }).orElse(null);
     }
@@ -53,5 +54,16 @@ public class UserServiceImpl implements UserService {
             userRepository.delete(found);
             return true;
         }).orElse(false);
+    }
+
+    @Override
+    public User loginUser(User user) {
+        return userRepository.findByEmail(user.getEmail()).map(found->
+        {
+            if(found.getPassword().equals(user.getPassword()))
+                return found;
+            else
+                return null;
+        }).orElse(null);
     }
 }

@@ -11,4 +11,6 @@ public interface UserService
     User findUser(Long userId);
     User updateUser(Long userId, User user);
     boolean deleteUser(Long userId);
+
+    User loginUser(User user);
 }
